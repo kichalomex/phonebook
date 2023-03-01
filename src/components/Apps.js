@@ -5,7 +5,7 @@ import { Persons } from "./Persons"
 const App = (props) => {
     const [ persons, setPersons ] = useState (props.persons)
     const [ newName, setNewName ] = useState('')
-
+    const [ newNumber, setNewNumber ] = useState('')
     const handleSubmit = (event) =>{
         event.preventDefault()
         
@@ -14,7 +14,10 @@ const App = (props) => {
             alert(`${newName} is already added to phoneBook.`)
         }
         else {
-            const newObject = { 'name': newName}
+            const newObject = { 
+                'name': newName, 
+                'number': newNumber
+            }
             setPersons(persons.concat(newObject))
             setNewName('')
         }
@@ -26,6 +29,10 @@ const App = (props) => {
             <div>
                 name: <input values={newName} onChange=
                 {handleChange(setNewName)}/>
+            </div>
+            <div>
+                number: <input values={newNumber} onChange=
+                {handleChange(setNewNumber)}/>
             </div>
             <div>
                 <button type='submit'>add</button>
