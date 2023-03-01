@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import { Filter } from "./FIlter"
 import { handleChange } from "./HandleChange"
 import { Persons } from "./Persons"
 
@@ -6,6 +7,7 @@ const App = (props) => {
     const [ persons, setPersons ] = useState (props.persons)
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
+    const [ searchName, setSearchName] = useState('')
     const handleSubmit = (event) =>{
         event.preventDefault()
         
@@ -25,6 +27,10 @@ const App = (props) => {
     return (
         <div>
             <Header name={'Phonebook'}/>
+            <Filter searchName={searchName} 
+            setSearchName={setSearchName}/>
+            <div></div>
+            <Header name={'Add a new'}/>
             <form onSubmit={handleSubmit}>
             <div>
                 name: <input values={newName} onChange=
@@ -40,7 +46,7 @@ const App = (props) => {
             </form>
             <div>
             <Header name={'Numbers'}/>
-            <Persons persons={persons}/>
+            <Persons persons={persons} searchName={searchName}/>
             </div>
         </div>
         
