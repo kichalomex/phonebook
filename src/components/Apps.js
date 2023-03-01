@@ -1,6 +1,7 @@
 import React, {useState} from "react"
+import { Header } from "./Header"
 import { Filter } from "./FIlter"
-import { handleChange } from "./HandleChange"
+import { PersonForm } from "./PersonForm"
 import { Persons } from "./Persons"
 
 const App = (props) => {
@@ -30,20 +31,12 @@ const App = (props) => {
             <Filter searchName={searchName} 
             setSearchName={setSearchName}/>
             <div></div>
+            <div>
             <Header name={'Add a new'}/>
-            <form onSubmit={handleSubmit}>
-            <div>
-                name: <input values={newName} onChange=
-                {handleChange(setNewName)}/>
+            <PersonForm handleSubmit={handleSubmit} 
+            newName={newName} setNewName={setNewName} 
+            newNumber={newNumber} setNewNumber={setNewNumber}/>
             </div>
-            <div>
-                number: <input values={newNumber} onChange=
-                {handleChange(setNewNumber)}/>
-            </div>
-            <div>
-                <button type='submit'>add</button>
-            </div>
-            </form>
             <div>
             <Header name={'Numbers'}/>
             <Persons persons={persons} searchName={searchName}/>
@@ -52,10 +45,5 @@ const App = (props) => {
         
     )
   }
-  const Header = (props) => {
-    return(
-    <h2>{props.name}</h2>
-    )
-  }
-  
+
   export default App
