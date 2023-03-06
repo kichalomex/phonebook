@@ -1,14 +1,27 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import { Header } from "./Header"
 import { Filter } from "./FIlter"
 import { PersonForm } from "./PersonForm"
 import { Persons } from "./Persons"
+import axios from "axios"
 
-const App = (props) => {
-    const [ persons, setPersons ] = useState (props.persons)
+const App = () => {
+    const [ persons, setPersons ] = useState ([])
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
     const [ searchName, setSearchName] = useState('')
+
+    useEffect(() =>{
+        console.log('Entro al Effect');
+        axios
+          .get('http://localhost:3001/persons')
+          .then(response =>{
+              console.log('Entro al then');
+              setPersons(response.data)
+        })
+      },[])
+      console.log('render',persons.length,'person');
+
     const handleSubmit = (event) =>{
         event.preventDefault()
         
