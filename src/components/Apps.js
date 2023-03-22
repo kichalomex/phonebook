@@ -19,7 +19,7 @@ const App = () => {
                 console.log('Entro al then');
                 setPersons(data)
             })
-    },[])
+    },[persons])
     console.log('render',persons.length,'person');
 
     const handleSubmit = (event) =>{

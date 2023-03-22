@@ -11,7 +11,7 @@ const PersonForm = (props) => {
                 number: <input value={newNumber} onChange={handleChange(setNewNumber)}/>
             </div>
             <div>
-                <button type='submit'>add</button>
+                <button type='submit'>Add</button>
             </div>
         </form>
     )
