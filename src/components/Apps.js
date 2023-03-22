@@ -12,6 +12,7 @@ const App = () => {
     const [ newNumber, setNewNumber ] = useState('')
     const [ searchName, setSearchName ] = useState('')
     const [ message, setMessage ] = useState(null)
+    const [ errorMessage, setErrorMessage ] = useState(null)
 
     const timer = 3000
 
@@ -40,6 +41,10 @@ const App = () => {
             const newObjectID = persons[persons_names.indexOf(newName)]['id']
             Services
                 .update(newObjectID, newObject)
+                .then(data => setPersons(persons.map(person => newObjectID !== person.id ? person : data)))
+                .catch(error => { setErrorMessage(`Information of ${newName} has already been removed from server`) 
+                    setTimeout(() => {setErrorMessage(null)}, 5000)
+                })
             
             setMessage(`Added ${newName}`)
             setTimeout(() => {setMessage(null)}, timer)
@@ -58,7 +63,14 @@ const App = () => {
     return (
         <div>
             <Header name={'Phonebook'}/>
-            <Notification message={message}/>
+            {
+                errorMessage &&
+                <Notification message={errorMessage} error={true} />
+            }
+            {
+                message &&
+                <Notification message={message} />
+            }
             <Filter searchName={searchName} 
             setSearchName={setSearchName}/>
             <div></div>
@@ -70,7 +82,7 @@ const App = () => {
             </div>
             <div>
             <Header name={'Numbers'}/>
-            <Persons persons={persons} searchName={searchName}/>
+            <Persons persons={persons} searchName={searchName} setPersons={setPersons}/>
             </div>
         </div>
         
