@@ -4,12 +4,16 @@ import { Filter } from "./FIlter"
 import { PersonForm } from "./PersonForm"
 import { Persons } from "./Persons"
 import Services from "./Services"
+import { Notification } from "./Notification"
 
 const App = () => {
     const [ persons, setPersons ] = useState ([])
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
-    const [ searchName, setSearchName] = useState('')
+    const [ searchName, setSearchName ] = useState('')
+    const [ message, setMessage ] = useState(null)
+
+    const timer = 3000
 
     useEffect(() =>{
         console.log('Entro al Effect');
@@ -19,7 +23,7 @@ const App = () => {
                 console.log('Entro al then');
                 setPersons(data)
             })
-    },[persons])
+    },[])
     console.log('render',persons.length,'person');
 
     const handleSubmit = (event) =>{
@@ -34,7 +38,11 @@ const App = () => {
 
         if (persons_names.includes(newName) && window.confirm(message)) {
             const newObjectID = persons[persons_names.indexOf(newName)]['id']
-            Services.update(newObjectID, newObject)    
+            Services
+                .update(newObjectID, newObject)
+            
+            setMessage(`Added ${newName}`)
+            setTimeout(() => {setMessage(null)}, timer)
         }
         else {
             Services
@@ -42,11 +50,15 @@ const App = () => {
                 .then(data => 
                     setPersons(persons.concat(newObject)))
                     setNewName('')
+                        
+            setMessage(`Added ${newName}`)
+            setTimeout(() => {setMessage(null)}, timer)
         }
     }
     return (
         <div>
             <Header name={'Phonebook'}/>
+            <Notification message={message}/>
             <Filter searchName={searchName} 
             setSearchName={setSearchName}/>
             <div></div>
