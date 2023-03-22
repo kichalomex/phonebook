@@ -32,7 +32,6 @@ const App = () => {
 
         const persons_names = persons.map(person => person.name)
         const message = `${newName} is already added to phonebook, replace the old number with a new one?`
-        console.log(`${newName} is already added to phonebook, replace the old number with a new one?`);
         const newObject = {
             'name': newName,
             'number': newNumber
@@ -44,7 +43,6 @@ const App = () => {
                 .update(newObjectID, newObject)
                 .then(data => setPersons(persons.map(person => newObjectID !== person.id ? person : data)))
                 .catch(error => { setErrorMessage(`Information of ${newName} has already been removed from server`) 
-                console.log(`Information of ${newName} has already been removed from server`);
                     setTimeout(() => {setErrorMessage(null)}, 5000)
                 })
             
