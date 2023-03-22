@@ -11,10 +11,12 @@ const App = () => {
     const [ newNumber, setNewNumber ] = useState('')
     const [ searchName, setSearchName] = useState('')
 
+    const url = 'http://localhost:3001/persons'
+
     useEffect(() =>{
         console.log('Entro al Effect');
         axios
-          .get('http://localhost:3001/persons')
+          .get(url)
           .then(response =>{
               console.log('Entro al then');
               setPersons(response.data)
@@ -26,6 +28,7 @@ const App = () => {
         event.preventDefault()
         
         const persons_names = persons.map(person => person.name)
+
         if (persons_names.includes(newName)) {
             alert(`${newName} is already added to phoneBook.`)
         }
@@ -34,8 +37,12 @@ const App = () => {
                 'name': newName, 
                 'number': newNumber
             }
-            setPersons(persons.concat(newObject))
-            setNewName('')
+            axios
+                .post(url, newObject)
+                .then(response =>{
+                    setPersons(persons.concat(newObject))
+                    setNewName('')
+                })
         }
     }
     return (
