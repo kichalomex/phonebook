@@ -4,12 +4,14 @@ const Notification = ({message, error = false}) => {
             return (
                 <div className="error">
                     {message}
+                    console.log({message});
                 </div> 
             )
     } else {
         return (
             <div className="message">
                 {message}
+                console.log({message});
             </div>
         )
     }
