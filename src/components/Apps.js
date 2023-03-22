@@ -3,7 +3,7 @@ import { Header } from "./Header"
 import { Filter } from "./FIlter"
 import { PersonForm } from "./PersonForm"
 import { Persons } from "./Persons"
-import axios from "axios"
+import Services from "./Services"
 
 const App = () => {
     const [ persons, setPersons ] = useState ([])
@@ -11,18 +11,16 @@ const App = () => {
     const [ newNumber, setNewNumber ] = useState('')
     const [ searchName, setSearchName] = useState('')
 
-    const url = 'http://localhost:3001/persons'
-
     useEffect(() =>{
         console.log('Entro al Effect');
-        axios
-          .get(url)
-          .then(response =>{
-              console.log('Entro al then');
-              setPersons(response.data)
-        })
-      },[])
-      console.log('render',persons.length,'person');
+        Services
+            .getAll()
+            .then(data => {
+                console.log('Entro al then');
+                setPersons(data)
+            })
+    },[])
+    console.log('render',persons.length,'person');
 
     const handleSubmit = (event) =>{
         event.preventDefault()
@@ -37,12 +35,11 @@ const App = () => {
                 'name': newName, 
                 'number': newNumber
             }
-            axios
-                .post(url, newObject)
-                .then(response =>{
-                    setPersons(persons.concat(newObject))
+            Services
+                .create(newObject)
+                .then(data => 
+                    setPersons(persons.concat(newObject)))
                     setNewName('')
-                })
         }
     }
     return (
