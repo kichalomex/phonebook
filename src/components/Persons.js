@@ -1,26 +1,19 @@
-import { Person } from "./Person"
+import React from "react";
 
-const Persons = (props) => {
-  const { persons, searchName, setPersons } = props
-    return(
-      <div>
-        <table>
-          <tbody>
-            {
-                props.persons.map((element, key) =>{
-                  if (searchName.length === 0 ||
-                    element.name.search(searchName) !== -1){
-                      return (
-                        <Person key={element.name}  persons={persons} person={element} setPersons={setPersons}/>
-                      )
-                    }
-                }
-                )
-            }
-          </tbody>
-        </table>
-      </div>
-   )
-  }
+const Persons = ({ filteredPersons, deletePerson }) => {
+  return (
+    <div>
+      {filteredPersons.map((person) => {
+        //console.log(person.id)
+        return (
+          <p key={person.id}>
+            {person.name} {person.number} <button onClick={() => deletePerson(person.id)}>delete</button>
+          </p>
+        )
+      })}
+    </div>
+  )
+}
 
-  export { Persons }
+
+export default Persons

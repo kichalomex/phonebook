@@ -1,20 +1,25 @@
-import { handleChange } from "./HandleChange";
+import React from "react";
 
-const PersonForm = (props) => {
-    const { handleSubmit, newName, setNewName, newNumber, setNewNumber} = props
+const PersonForm = ({
+    addName,
+    newName,
+    newNumber,
+    handleNameChange,
+    handleNumberChange
+}) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={addName}>
             <div>
-                name: <input value={newName} onChange={handleChange(setNewName)}/>
+                name: <input value={newName} onChange={handleNameChange} />
             </div>
             <div>
-                number: <input value={newNumber} onChange={handleChange(setNewNumber)}/>
+                number:<input value={newNumber} onChange={handleNumberChange} />
             </div>
             <div>
-                <button type='submit'>Add</button>
+                <button type="submit" >add</button>
             </div>
-        </form>
-    )
+        </form>)
+
 }
 
-export {PersonForm}
+export default PersonForm

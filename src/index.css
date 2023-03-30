@@ -1,6 +1,6 @@
-.message {
-    color: green;
-    background: lightgray;
+.error {
+    color: red;
+    background-color: lightgrey;
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
@@ -8,9 +8,10 @@
     margin-bottom: 10px;
 }
 
-.error {
-    color: red;
-    background: lightgray;
+
+.good {
+    color: green;
+    background-color: lightgrey;
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
