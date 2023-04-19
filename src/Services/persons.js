@@ -2,7 +2,7 @@ import axios from "axios";
 
 //Componentes que manejan la comunicación con el servidor
 
-const url = 'http://localhost:3001/api/persons'
+const url = '/api/persons'
 
 //Select *
 const getAll = () => {
